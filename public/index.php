@@ -10,14 +10,34 @@ require __DIR__ . '/../controllers/ClienteController.php';
 require __DIR__ . '/../controllers/HotelController.php';
 require __DIR__ . '/../controllers/HabitacionController.php';
 require __DIR__ . '/../controllers/ReservaController.php';
+require __DIR__ . '/../controllers/DashboardController.php';
 
-// Tomamos la ruta de la URL, por defecto 'login'
-$route = $_GET['ruta'] ?? 'login';
+
+
+// Tomamos la ruta de la URL, por defecto 'landing'
+$route = $_GET['ruta'] ?? 'landing';
 
 // Debug: imprime la ruta que está usando el router
 // echo "<!-- Ruta solicitada: $route -->";
+// Rutas públicas
+$public = ['landing','login','register'];
+
+// rutas públicas
+$public = ['landing','login','register'];
+// obliga a login si ruta no es pública
+if (!in_array($route, $public) && empty($_SESSION['cliente_id'])) {
+  header('Location: ?ruta=landing');
+  exit;
+}
 
 switch ($route) {
+  // Página de inicio
+  case 'landing':
+  include __DIR__ . '/../views/landing.php';
+  break;
+
+  // Dashboard
+  case 'dashboard': (new DashboardController)->index(); break;
   // Clientes
   case 'register':   (new ClienteController)->register();  break;
   case 'login':      (new ClienteController)->login();     break;
@@ -40,12 +60,24 @@ switch ($route) {
   case 'habitacion-borrar':  (new HabitacionController)->delete();  break;
 
   // Reservas
-  case 'reservas':         (new ReservaController)->index();   break;
-  case 'reserva-nueva':    (new ReservaController)->create();  break;
-  case 'reserva-guardar':  (new ReservaController)->store();   break;
-  case 'reserva-editar':   (new ReservaController)->edit();    break;
-  case 'reserva-update':   (new ReservaController)->update();  break;
-  case 'reserva-borrar':   (new ReservaController)->delete();  break;
+
+  case 'reservas':
+    (new ReservaController)->index();
+    break;
+  case 'reserva-buscar':
+    (new ReservaController)->search();
+    break;
+  case 'reserva-nueva':
+    (new ReservaController)->create();
+    break;
+  case 'reserva-guardar':
+    (new ReservaController)->store();
+    break;
+
+  
+
+  
+
 
   default:
     // Muestra la ruta solicitada para debug

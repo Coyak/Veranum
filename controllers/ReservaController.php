@@ -7,49 +7,77 @@ class ReservaController {
   private $habitacionModel;
 
   public function __construct() {
-    $this->model            = new Reserva();
-    $this->habitacionModel  = new Habitacion();
+    $this->model           = new Reserva();
+    $this->habitacionModel = new Habitacion();
   }
 
-  // Listado de reservas del cliente logueado
   public function index() {
     $clienteId = $_SESSION['cliente_id'];
     $lista     = $this->model->allByCliente($clienteId);
     include __DIR__ . '/../views/reserva/index.php';
   }
 
-  // Formulario para reservar
+  /**
+   * 1) Muestra el formulario donde el usuario ingresa fechas
+   *    para buscar disponibilidad.
+   */
+  public function search() {
+    include __DIR__ . '/../views/reserva/search.php';
+  }
+
+  /**
+   * 2) Recibe las fechas por GET, obtiene sólo las habitaciones
+   *    libres en ese rango y muestra el formulario de reserva.
+   */
   public function create() {
-    $habitaciones = $this->habitacionModel->all();
+    // 2.1 Recoger fechas del query string
+    $fecha_inicio = $_GET['fecha_inicio'] ?? null;
+    $fecha_fin    = $_GET['fecha_fin']    ?? null;
+
+    // 2.2 Si faltan fechas, volvemos a la búsqueda
+    if (!$fecha_inicio || !$fecha_fin) {
+      header('Location: ?ruta=reserva-buscar');
+      exit;
+    }
+
+    // 2.3 Obtener habitaciones disponibles
+    $habitaciones = $this->model->availableRooms($fecha_inicio, $fecha_fin);
+
+    // 2.4 Incluir la vista que mostrará el <select> con $habitaciones
     include __DIR__ . '/../views/reserva/create.php';
   }
 
-  // Guarda nueva reserva
+  /**
+   * 3) Procesa el POST del formulario de reserva:
+   *    - Vuelve a chequear disponibilidad
+   *    - Inserta la reserva si sigue libre
+   *    - Redirige al listado
+   */
   public function store() {
+    $fecha_inicio = $_POST['fecha_inicio'];
+    $fecha_fin    = $_POST['fecha_fin'];
+    $habId        = $_POST['habitacion_id'];
+
+    // 3.1 Validar de nuevo que sigue libre
+    $disponibles = array_column(
+      $this->model->availableRooms($fecha_inicio, $fecha_fin),
+      'id'
+    );
+    if (!in_array($habId, $disponibles)) {
+      die("<p class='p-4 bg-red-100 text-red-700'>
+             La habitación ya no está disponible.
+           </p>");
+    }
+
+    // 3.2 Completar datos y guardar
     $_POST['cliente_id'] = $_SESSION['cliente_id'];
     $this->model->create($_POST);
+
+    // 3.3 Redirigir al listado de reservas
     header('Location: ?ruta=reservas');
     exit;
   }
 
-  // Formulario para editar una reserva existente
-  public function edit() {
-    $item         = $this->model->find($_GET['id']);
-    $habitaciones = $this->habitacionModel->all();
-    include __DIR__ . '/../views/reserva/edit.php';
-  }
-
-  // Actualiza la reserva en BD
-  public function update() {
-    $this->model->update($_POST['id'], $_POST);
-    header('Location: ?ruta=reservas');
-    exit;
-  }
-
-  // Borra una reserva
-  public function delete() {
-    $this->model->delete($_GET['id']);
-    header('Location: ?ruta=reservas');
-    exit;
-  }
+  // … aquí irían index(), edit(), update(), delete() …
 }
+

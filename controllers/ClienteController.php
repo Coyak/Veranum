@@ -57,28 +57,26 @@ class ClienteController {
      * mostrando error si las credenciales no coinciden.
      */
     public function login() {
-        $error = '';
+    $error = '';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $email = trim($_POST['email']  ?? '');
+        $pass  = $_POST['password']     ?? '';
+        $user  = $this->model->findByEmail($email);
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $email = trim($_POST['email'] ?? '');
-        $pass  = $_POST['password'] ?? '';
-
-        if ($email === '' || $pass === '') {
-            $error = 'Ambos campos son obligatorios.';
+        if ($user && password_verify($pass, $user['password'])) {
+        //  ───────── Aquí guardamos ID y ROLE en la sesión ─────────
+        $_SESSION['cliente_id']   = $user['id'];
+        $_SESSION['cliente_role'] = $user['role'];
+        // ────────────────────────────────────────────────────────────
+        header('Location: ?ruta=dashboard');
+        exit;
         } else {
-            $user = $this->model->findByEmail($email);
-            if ($user && password_verify($pass, $user['password'])) {
-            $_SESSION['cliente_id'] = $user['id'];
-            header('Location: ?ruta=habitaciones');
-            exit;
-            } else {
-            $error = 'Email o contraseña incorrectos.';
-            }
+        $error = 'Email o contraseña incorrectos.';
         }
-        }
-
-        include __DIR__ . '/../views/cliente/login.php';
     }
+    include __DIR__ . '/../views/cliente/login.php';
+    }
+
 
     public function logout() {
         session_destroy();
