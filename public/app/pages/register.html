@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro – Veranum</title>
+    <link href="../assets/css/tailwind.css" rel="stylesheet">
+</head>
+<body class="h-screen bg-gray-100 flex items-center justify-center">
+    <form id="form-register" class="bg-white p-8 rounded-lg shadow-md w-80">
+        <h2 class="text-2xl font-bold mb-6">Crear Cuenta</h2>
+        <input name="nombre" type="text" placeholder="Nombre completo"
+        class="w-full mb-4 p-2 border rounded" required>
+        <input name="email" type="email" placeholder="Email"
+        class="w-full mb-4 p-2 border rounded" required>
+        <input name="password" type="password" placeholder="Contraseña"
+        class="w-full mb-4 p-2 border rounded" required>
+        <p id="error-register" class="text-red-600 mb-4 hidden"></p>
+        <button type="submit"
+        class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
+        Registrarse
+        </button>
+        <p class="mt-4 text-sm text-center">
+        ¿Ya tienes cuenta? 
+        <a href="login.html" class="text-blue-600 hover:underline">Iniciar sesión</a>
+        </p>
+    </form>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+</html>
+
