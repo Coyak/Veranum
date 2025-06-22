@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Recepción – Veranum</title>
+  <link href="/app/assets/css/tailwind.css" rel="stylesheet">
+  <script src="/app/js/guard.js"></script>
+</head>
+<body class="min-h-screen bg-gray-100 flex flex-col">
+  <!-- Navbar dinámico -->
+  <div id="navbar"></div>
+
+  <main class="flex-grow container mx-auto p-6">
+    <h1 class="text-2xl font-semibold mb-4">Módulo de Recepción</h1>
+
+    <!-- Tabla de reservas pendientes -->
+    <div class="bg-white rounded shadow overflow-auto">
+      <table class="min-w-full">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3">ID Reserva</th>
+            <th class="px-6 py-3">Cliente</th>
+            <th class="px-6 py-3">Habitación</th>
+            <th class="px-6 py-3">Fecha Inicio</th>
+            <th class="px-6 py-3">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="res-body" class="divide-y divide-gray-200"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="/app/js/navbar.js"></script>
+  <script src="/app/js/api.js"></script>
+  <script src="/app/js/recepcion.js"></script>
+</body>
+</html>

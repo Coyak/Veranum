@@ -1,73 +1,51 @@
 // public/app/js/navbar.js
-// —————— PRIMERA SECCIÓN: Protección de ruta ——————
-;(function() {
-  const mapping = {
-    'reservas.html':     ['cliente','recepcion'],
-    'hotels.html':       ['admin'],
-    'habitaciones.html': ['admin','recepcion'],
-    'insumos.html':      ['cocina'],
-    'promociones.html':  ['marketing'],
-    'reportes.html':     ['gerente'],
-    'servicios.html':    ['servicio']
-  };
-  const page  = location.pathname.split('/').pop();
-  const allow = mapping[page] || [];
-  const role  = (sessionStorage.getItem('role')||'').toLowerCase();
-
-  if (allow.length && !allow.includes(role)) {
-    alert('No tienes permiso para esta sección.');
-    window.location = 'login.html';
-    // Con return detenemos el resto de ejecución de navbar.js
-    return;
-  }
-})();
-
 document.addEventListener('DOMContentLoaded', () => {
   const role = (sessionStorage.getItem('role')||'').toLowerCase();
-  const navbar = document.getElementById('navbar');
-
-  // 1) Define aquí los menús por rol
-  const menus = {
-    cliente:   [{ label:'Reservas',     href:'reservas.html' }],
-    recepcion: [{ label:'Reservas',     href:'reservas.html' }],
-    admin:     [
-      { label:'Hoteles',      href:'hotels.html' },
-      { label:'Habitaciones', href:'habitaciones.html' },
-      { label:'Servicios',    href:'servicios.html' }
-    ],
-    cocina:    [{ label:'Insumos',      href:'insumos.html' }],
-    marketing: [{ label:'Promociones',  href:'promociones.html' }],
-    gerente:   [{ label:'Reportes',     href:'reportes.html' }],
-    servicio:  [{ label:'Servicios',    href:'servicios.html' }]
-  };
-
-  // 2) Monta el HTML
+  const nav  = document.getElementById('navbar');
   let html = `
-    <nav class="bg-white shadow">
-      <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="#" class="text-xl font-bold text-indigo-600">Veranum</a>
-        <div class="space-x-4">
-  `;
-  (menus[role] || []).forEach(item => {
-    html += `<a href="${item.href}"
-                 class="text-gray-700 hover:text-gray-900">
-               ${item.label}
-             </a>`;
-  });
-  html += `
-          <button id="logout"
-                  class="ml-4 text-red-600 hover:text-red-800">
-            Cerrar sesión
-          </button>
-        </div>
-      </div>
-    </nav>
-  `;
-  navbar.innerHTML = html;
+    <nav class="bg-white shadow px-6 py-4 flex justify-between items-center">
+      <div class="text-2xl font-bold">Veranum</div>
+      <div class="space-x-4">`;
 
-  // 3) Logout
+  switch(role) {
+    case 'admin':
+      html += `
+        <a href="hotels.html" class="hover:underline">Hoteles</a>
+        <a href="habitaciones.html" class="hover:underline">Habitaciones</a>`;
+      break;
+    case 'recepcionista':
+      html += `
+        <a href="recepcion.html" class="hover:underline">Recepción</a>
+        <a href="servicios.html" class="hover:underline">Servicios</a>`;
+      break;
+    case 'cliente':
+      html += `
+        <a href="rooms.html" class="hover:underline">Habitaciones</a>
+        <a href="reservas.html" class="hover:underline">Reservas</a>`;
+      break;
+    case 'cocinero':
+      html += `
+        <a href="insumos.html" class="hover:underline">Insumos</a>`;
+      break;
+    case 'gerente':
+      html += `
+        <a href="reportes.html" class="hover:underline">Reportes</a>`;
+      break;
+    default:
+      html += ''; // ningún link si rol desconocido
+  }
+
+  html += `
+        <button id="logout" class="ml-4 bg-red-500 text-white px-3 py-1 rounded">
+          Cerrar sesión
+        </button>
+      </div>
+    </nav>`;
+
+  nav.innerHTML = html;
   document.getElementById('logout').onclick = () => {
+    API.call('logout', {});
     sessionStorage.clear();
-    window.location = 'login.html';
+    location = 'login.html';
   };
 });

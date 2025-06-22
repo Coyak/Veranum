@@ -9,6 +9,7 @@ require __DIR__ . '/../config/database.php';
 require __DIR__ . '/../src/modules/auth/ClienteController.php';
 require __DIR__ . '/../src/modules/hotel/HotelController.php';
 require __DIR__.'/../src/modules/habitacion/HabitacionController.php';
+require __DIR__.'/../src/modules/reserva/ReservaController.php';
 
 
 $api = $_GET['api'] ?? '';
@@ -49,6 +50,26 @@ switch($api) {
         break;
     case 'habitacion-delete':
         (new \Modules\Habitacion\HabitacionController)->delete();
+        break;
+
+    // Reservas
+    case 'reservas':
+        (new \Modules\Reserva\ReservaController())->index();
+        break;
+    case 'reserva-create':
+        (new \Modules\Reserva\ReservaController())->store();
+        break;
+    case 'reserva-update':
+        (new \Modules\Reserva\ReservaController())->update();
+        break;
+    case 'reserva-delete':
+        (new \Modules\Reserva\ReservaController())->delete();
+        break;
+    case 'reserva-checkin':
+        (new \Modules\Reserva\ReservaController())->checkin();
+        break;
+    case 'reserva-servicio':
+        (new \Modules\Reserva\ReservaController())->servicio();
         break;
 
 }
