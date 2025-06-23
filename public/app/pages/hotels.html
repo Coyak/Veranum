@@ -2,8 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Gestión de Hoteles – Veranum</title>
-  <link href="/app/assets/css/tailwind.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Hoteles - Veranum</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen bg-gray-100 flex flex-col">
 
@@ -11,23 +12,15 @@
   <div id="navbar"></div>
 
   <!-- CONTENIDO PRINCIPAL -->
-  <main class="flex-grow container mx-auto px-6 py-8">
-    <!-- Header y botón Nuevo -->
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 space-y-4 sm:space-y-0">
-      <h1 class="text-3xl font-semibold text-gray-800">Gestión de Hoteles</h1>
-      <button id="btn-new"
-              class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        <!-- Icono "+" -->
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 4v16m8-8H4"/>
-        </svg>
-        <span class="ml-2">Nuevo Hotel</span>
+  <div class="flex-grow container mx-auto p-6">
+    <header class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold">Gestión de Hoteles</h1>
+      <button id="btn-new" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+        &#43; Nuevo Hotel
       </button>
-    </div>
+    </header>
 
-    <!-- Tabla dentro de una tarjeta -->
-    <div class="bg-white shadow rounded-lg overflow-hidden">
+    <main class="bg-white rounded-lg shadow overflow-hidden">
       <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-50">
@@ -48,17 +41,13 @@
           </tbody>
         </table>
       </div>
-    </div>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="bg-white text-center py-4 text-sm text-gray-500">
-    © 2025 Veranum. Todos los derechos reservados.
-  </footer>
+    </main>
+  </div>
 
   <!-- SCRIPTS -->
   <script src="/app/js/api.js"></script>
   <script src="/app/js/navbar.js"></script>
+  <script src="/app/js/guard.js"></script>
   <script src="/app/js/hotels.js"></script>
 </body>
 </html>

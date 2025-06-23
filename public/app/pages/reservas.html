@@ -2,22 +2,29 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mis Reservas – Veranum</title>
-    <link href="/app/assets/css/tailwind.css" rel="stylesheet">
-    <script src="/app/js/guard.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Reservas - Veranum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen bg-gray-100 flex flex-col">
     <div id="navbar"></div>
 
-    <main class="flex-grow container mx-auto p-6">
-        <h1 class="text-3xl font-bold mb-6">Mis Reservas</h1>
-        <section id="reservations-list" class="space-y-4">
-            <!-- Las reservas se cargarán aquí dinámicamente -->
-        </section>
-    </main>
+    <div class="flex-grow container mx-auto p-6">
+        <header class="mb-6">
+            <h1 class="text-3xl font-bold">Mis Reservas</h1>
+            <p class="text-gray-600">Aquí puedes ver el historial de todas tus reservas pasadas y futuras.</p>
+        </header>
+        
+        <main class="bg-white rounded-lg shadow">
+            <div id="reservations-list" class="space-y-4 p-6">
+                <!-- Las reservas se cargarán aquí dinámicamente -->
+            </div>
+        </main>
+    </div>
 
     <script src="/app/js/api.js"></script>
     <script src="/app/js/navbar.js"></script>
+    <script src="/app/js/guard.js"></script>
     <script src="/app/js/reservas.js"></script>
 </body>
 </html> 

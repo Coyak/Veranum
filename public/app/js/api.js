@@ -3,7 +3,7 @@ console.log('api.js cargado');
 
 const API = {
   call: async (endpoint, data = null, method = null) => {
-    let url = `${window.location.origin}/api.php?api=${endpoint}`;
+    let url = `/api.php?api=${endpoint}`;
 
     // Si se especifica un método, se usa. Si no, se infiere (POST si hay datos, si no GET).
     const finalMethod = method || (data ? 'POST' : 'GET');

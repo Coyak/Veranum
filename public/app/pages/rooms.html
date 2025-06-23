@@ -2,41 +2,49 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Buscar Habitaciones – Veranum</title>
-  <link href="/app/assets/css/tailwind.css" rel="stylesheet">
-  <script src="/app/js/guard.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscar Habitaciones - Veranum</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen bg-gray-100 flex flex-col">
   <div id="navbar"></div>
 
-  <main class="flex-grow container mx-auto p-6 space-y-6">
-    <!-- 1) Formulario de búsqueda -->
-    <section class="bg-white p-6 rounded shadow">
-      <h2 class="text-xl font-semibold mb-4">Buscar Habitaciones</h2>
-      <form id="search-form" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
-          <label class="block mb-1">Fecha Inicio</label>
-          <input type="date" name="fi" class="w-full border px-3 py-2 rounded" required>
-        </div>
-        <div>
-          <label class="block mb-1">Fecha Fin</label>
-          <input type="date" name="ff" class="w-full border px-3 py-2 rounded" required>
-        </div>
-        <div class="flex items-end">
-          <button type="submit"
-                  class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-            Buscar
-          </button>
-        </div>
-      </form>
-    </section>
+  <div class="flex-grow container mx-auto p-6">
+    <header class="mb-6">
+      <h1 class="text-3xl font-bold">Encuentra tu Próxima Estadía</h1>
+      <p class="text-gray-600">Selecciona las fechas para ver las habitaciones disponibles.</p>
+    </header>
 
-    <!-- 2) Resultados -->
-    <section id="results" class="space-y-4"></section>
-  </main>
+    <main class="space-y-6">
+      <!-- 1) Formulario de búsqueda -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <form id="search-form" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block mb-1">Fecha Inicio</label>
+            <input type="date" name="fi" class="w-full border px-3 py-2 rounded" required>
+          </div>
+          <div>
+            <label class="block mb-1">Fecha Fin</label>
+            <input type="date" name="ff" class="w-full border px-3 py-2 rounded" required>
+          </div>
+          <div class="flex items-end">
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded">
+              Buscar
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- 2) Resultados -->
+      <section id="results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Las tarjetas de resultados se inyectan aquí -->
+      </section>
+    </main>
+  </div>
 
   <script src="/app/js/api.js"></script>
   <script src="/app/js/navbar.js"></script>
+  <script src="/app/js/guard.js"></script>
   <script src="/app/js/rooms.js"></script>
 </body>
 </html>
