@@ -48,4 +48,15 @@ class ReservaController {
     $ok = $this->m->addService((int)($in['id'] ?? 0), trim($in['servicio'] ?? ''));
     echo json_encode(['ok'=>$ok]);
   }
+
+  public function misReservas() {
+    if (!isset($_SESSION['cliente_id'])) {
+      http_response_code(403);
+      echo json_encode(['ok' => false, 'error' => 'Acceso denegado. Debes iniciar sesión.']);
+      return;
+    }
+    $cliente_id = $_SESSION['cliente_id'];
+    $reservas = $this->m->findByClientId($cliente_id);
+    echo json_encode($reservas);
+  }
 }

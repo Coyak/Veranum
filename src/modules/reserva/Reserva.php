@@ -28,7 +28,7 @@ class Reserva {
     $stmt = $this->pdo->prepare("
       INSERT INTO reservas 
         (cliente_id, habitacion_id, fecha_inicio, fecha_fin, status)
-      VALUES (?,?,?,?, 'reservada')
+      VALUES (?,?,?,?, 'pendiente')
     ");
     return $stmt->execute([
       (int)$d['cliente_id'],
@@ -78,5 +78,27 @@ class Reserva {
       WHERE id = ?
     ");
     return $stmt->execute([$serv, $id]);
+  }
+
+  /** 7) Encontrar reservas por ID de cliente */
+  public function findByClientId(int $cliente_id): array {
+    $sql = "
+      SELECT 
+        r.id, 
+        r.fecha_inicio, 
+        r.fecha_fin, 
+        r.status,
+        h.nombre AS nombre_habitacion,
+        h.foto,
+        hot.nombre AS nombre_hotel
+      FROM reservas r
+      JOIN habitaciones h ON r.habitacion_id = h.id
+      JOIN hoteles hot ON h.hotel_id = hot.id
+      WHERE r.cliente_id = ?
+      ORDER BY r.fecha_inicio DESC
+    ";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([$cliente_id]);
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
   }
 }

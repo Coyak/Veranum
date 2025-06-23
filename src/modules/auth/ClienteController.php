@@ -28,12 +28,11 @@ class ClienteController {
         }
         $user = $this->model->findByEmail($in['email']);
         if ($user && password_verify($in['password'], $user['password'])) {
-        session_start();
         $_SESSION['cliente_id']   = $user['id'];
         $_SESSION['cliente_role'] = $user['role'];
-        echo json_encode(['ok'=>true,'role'=>$user['role']]);
+        echo json_encode(['ok' => true, 'id' => $user['id'], 'role' => $user['role']]);
         } else {
-        echo json_encode(['ok'=>false,'error'=>'Email o contraseña inválidos']);
+        echo json_encode(['ok' => false, 'error' => 'Email o contraseña inválidos']);
         }
     }
 }

@@ -38,4 +38,19 @@ class HabitacionController {
     $id = (int)($in['id'] ?? 0);
     echo json_encode(['ok' => $this->m->delete($id)]);
   }
+    /** 
+   * GET ?api=habitacion-disponibles&fi=YYYY-MM-DD&ff=YYYY-MM-DD
+   */
+  public function available() {
+    $in = json_decode(file_get_contents('php://input'), true);
+    if (!$in || !isset($in['fi'], $in['ff'])) {
+        http_response_code(400);
+        echo json_encode(['ok' => false, 'error' => 'Fechas de inicio y fin son requeridas.']);
+        return;
+    }
+
+    $disponibles = $this->m->findAvailable($in['fi'], $in['ff']);
+    echo json_encode($disponibles);
+  }
+
 }

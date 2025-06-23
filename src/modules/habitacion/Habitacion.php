@@ -55,4 +55,62 @@ class Habitacion {
     $stmt = $this->pdo->query("SELECT * FROM habitaciones ORDER BY id");
     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
   }
+    /**
+   * Devuelve habitaciones libres entre dos fechas.
+   */
+  public function available(string $fi, string $ff): array {
+    $sql = "
+      SELECT h.* 
+      FROM habitaciones h
+      WHERE NOT EXISTS (
+        SELECT 1 
+        FROM reservas r 
+        WHERE r.habitacion_id = h.id 
+          AND r.fecha_inicio <= :ff 
+          AND r.fecha_fin    >= :fi
+      )
+      ORDER BY h.id
+    ";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([
+      'fi' => $fi,
+      'ff' => $ff
+    ]);
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
+  public function findAvailable(string $fecha_inicio, string $fecha_fin): array
+  {
+    $sql = "
+      SELECT 
+        h.id,
+        h.nombre AS nombre_habitacion,
+        h.precio,
+        h.foto,
+        hot.nombre AS nombre_hotel
+      FROM habitaciones h
+      JOIN hoteles hot ON h.hotel_id = hot.id
+      WHERE h.id NOT IN (
+        SELECT r.habitacion_id
+        FROM reservas r
+        WHERE 
+          -- Se solapa si la reserva empieza durante el rango de búsqueda
+          (r.fecha_inicio <= :fi AND r.fecha_fin > :fi) OR
+          -- Se solapa si la reserva termina durante el rango de búsqueda
+          (r.fecha_inicio < :ff AND r.fecha_fin >= :ff) OR
+          -- Se solapa si la reserva contiene completamente el rango de búsqueda
+          (r.fecha_inicio >= :fi AND r.fecha_fin <= :ff)
+      )
+    ";
+
+    try {
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->execute([':fi' => $fecha_inicio, ':ff' => $fecha_fin]);
+      return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    } catch (\PDOException $e) {
+      // En un caso real, aquí se debería loguear el error.
+      error_log('Error en findAvailable: ' . $e->getMessage());
+      return [];
+    }
+  }
 }
