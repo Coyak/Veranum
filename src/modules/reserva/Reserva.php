@@ -101,4 +101,70 @@ class Reserva {
     $stmt->execute([$cliente_id]);
     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
   }
+
+  /** 8) Encontrar reservas por un estado específico */
+  public function findByStatus(string $status): array {
+    $sql = "
+      SELECT 
+        r.id, 
+        r.fecha_inicio, 
+        r.fecha_fin, 
+        r.status,
+        c.nombre AS cliente_nombre,
+        h.nombre AS nombre_habitacion,
+        h.precio AS precio_habitacion
+      FROM reservas r
+      JOIN clientes c ON r.cliente_id = c.id
+      JOIN habitaciones h ON r.habitacion_id = h.id
+      WHERE r.status = ?
+      ORDER BY r.fecha_inicio ASC
+    ";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([$status]);
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
+  /** 9) Encontrar reservas para la recepción (pendientes o con check-in) */
+  public function findForReception(): array {
+    $sql = "
+      SELECT 
+        r.id, 
+        r.fecha_inicio, 
+        r.fecha_fin, 
+        r.status,
+        c.nombre AS cliente_nombre,
+        h.nombre AS nombre_habitacion,
+        h.precio AS precio_habitacion
+      FROM reservas r
+      JOIN clientes c ON r.cliente_id = c.id
+      JOIN habitaciones h ON r.habitacion_id = h.id
+      WHERE r.status IN ('pendiente', 'checkin')
+      ORDER BY r.fecha_inicio ASC
+    ";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
+  /** 10) Encontrar una reserva específica por su ID */
+  public function findById(int $id) {
+    // Reutiliza la consulta de findByStatus pero para un solo ID
+    $sql = "
+      SELECT 
+        r.id, 
+        r.fecha_inicio, 
+        r.fecha_fin, 
+        r.status,
+        c.nombre AS cliente_nombre,
+        h.nombre AS nombre_habitacion,
+        h.precio AS precio_habitacion
+      FROM reservas r
+      JOIN clientes c ON r.cliente_id = c.id
+      JOIN habitaciones h ON r.habitacion_id = h.id
+      WHERE r.id = ?
+    ";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([$id]);
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+  }
 }

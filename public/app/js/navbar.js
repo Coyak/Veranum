@@ -11,12 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
     case 'admin':
       html += `
         <a href="hotels.html" class="hover:underline">Hoteles</a>
-        <a href="habitaciones.html" class="hover:underline">Habitaciones</a>`;
+        <a href="habitaciones.html" class="hover:underline">Habitaciones</a>
+        <a href="servicios-admin.html" class="hover:underline">Gestionar Servicios</a>`;
       break;
     case 'recepcionista':
       html += `
-        <a href="recepcion.html" class="hover:underline">Recepción</a>
-        <a href="servicios.html" class="hover:underline">Servicios</a>`;
+        <a href="recepcion.html" class="hover:underline">Recepción</a>`;
       break;
     case 'cliente':
       html += `

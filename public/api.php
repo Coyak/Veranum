@@ -14,6 +14,8 @@ try {
     require __DIR__ . '/../src/modules/hotel/HotelController.php';
     require __DIR__.'/../src/modules/habitacion/HabitacionController.php';
     require __DIR__.'/../src/modules/reserva/ReservaController.php';
+    require __DIR__.'/../src/modules/servicio/ServicioController.php';
+    require __DIR__.'/../src/modules/servicio/TipoServicioController.php';
 
     $api = $_GET['api'] ?? '';
     switch($api) {
@@ -69,12 +71,45 @@ try {
         case 'reserva-checkin':
             (new \Modules\Reserva\ReservaController())->checkin();
             break;
+        case 'reservas-checkin':
+            (new \Modules\Reserva\ReservaController())->getCheckedIn();
+            break;
+        case 'asignar-servicios':
+            (new \Modules\Servicio\ServicioController())->assign();
+            break;
+        case 'servicios-reserva':
+            (new \Modules\Servicio\ServicioController())->getAssignedServices();
+            break;
         case 'reserva-servicio':
-            (new \Modules\Reserva\ReservaController())->servicio();
+            (new \Modules\Servicio\ServicioController())->store();
             break;
         case 'mis-reservas':
             (new \Modules\Reserva\ReservaController())->misReservas();
             break;
+        case 'reservas-recepcion':
+            (new \Modules\Reserva\ReservaController())->getForReception();
+            break;
+        case 'reserva-details':
+            (new \Modules\Reserva\ReservaController())->getDetails();
+            break;
+
+        // CRUD para Tipos de Servicio (Admin)
+        case 'tipos-servicio':
+            (new \Modules\Servicio\TipoServicioController())->index();
+            break;
+        case 'tipos-servicio-create':
+            (new \Modules\Servicio\TipoServicioController())->store();
+            break;
+        case 'tipos-servicio-update':
+            (new \Modules\Servicio\TipoServicioController())->update();
+            break;
+        case 'tipos-servicio-delete':
+            (new \Modules\Servicio\TipoServicioController())->delete();
+            break;
+        case 'servicio-delete':
+            (new \Modules\Servicio\ServicioController())->delete();
+            break;
+
         default:
             http_response_code(404);
             echo json_encode(['ok'=>false,'error'=>'API no encontrada']);

@@ -2,18 +2,26 @@
 console.log('api.js cargado');
 
 const API = {
-  call: async (endpoint, data = null) => {
-    // 1) base absoluta: asume que /api.php está en la raíz del dominio
-    const url = `${window.location.origin}/api.php?api=${endpoint}`;
+  call: async (endpoint, data = null, method = null) => {
+    let url = `${window.location.origin}/api.php?api=${endpoint}`;
 
-    // 2) prepara opciones de fetch
+    // Si se especifica un método, se usa. Si no, se infiere (POST si hay datos, si no GET).
+    const finalMethod = method || (data ? 'POST' : 'GET');
+
     const opts = {
-      method: data ? 'POST' : 'GET',
+      method: finalMethod,
       credentials: 'include'
     };
+
     if (data) {
-      opts.headers = { 'Content-Type': 'application/json' };
-      opts.body    = JSON.stringify(data);
+      // Si es POST, los datos van en el body.
+      if (finalMethod === 'POST') {
+        opts.headers = { 'Content-Type': 'application/json' };
+        opts.body    = JSON.stringify(data);
+      } else { 
+        // Si es GET, los datos van como parámetros en la URL.
+        url += '&' + new URLSearchParams(data).toString();
+      }
     }
 
     console.log('→ FETCH', url, opts);

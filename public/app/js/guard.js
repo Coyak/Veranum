@@ -13,8 +13,8 @@
 
   // Map de páginas permitidas por rol
   const perms = {
-    admin:          ['hotels.html','habitaciones.html'],
-    recepcionista:  ['recepcion.html','servicios.html'],
+    admin:          ['hotels.html', 'habitaciones.html', 'servicios-admin.html'],
+    recepcionista:  ['recepcion.html','cuenta.html', 'asignar-servicios.html'],
     cliente:        ['rooms.html','reservas.html'],
     cocinero:       ['insumos.html'],
     gerente:        ['reportes.html']
