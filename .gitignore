@@ -1,0 +1,45 @@
+# Archivos y carpetas de sistema
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# Archivos de entorno y configuración local
+.env
+.env.*
+config/database.local.php
+
+# Dependencias de node y build
+node_modules/
+dist/
+build/
+
+# Archivos de Composer (si usas Composer)
+vendor/
+composer.lock
+
+# Archivos temporales de editor
+*.swp
+*.swo
+*.bak
+*.orig
+.idea/
+.vscode/
+
+# Archivos de base de datos locales
+*.sqlite
+database/*.bak
+database/*.tmp
+
+# Archivos de pruebas o scripts temporales
+public/app/pages/stock.html
+public/app/pages/test_*.html
+public/app/js/test_*.js
+public/app/js/test.js
+
+# Archivos de Docker (opcional, si no quieres subirlos)
+# Dockerfile
+docker-compose.yml
+
+# Otros archivos que no quieras subir
+# (agrega aquí cualquier otro archivo temporal o personal) 
