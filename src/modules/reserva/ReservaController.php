@@ -89,4 +89,19 @@ class ReservaController {
       echo json_encode(['ok' => false, 'error' => 'Reserva no encontrada']);
     }
   }
+
+  public function reporteIngresos($solo_valor = null, $fecha_inicio = null, $fecha_fin = null) {
+    $total = $this->m->totalIngresos($fecha_inicio, $fecha_fin);
+    if ($solo_valor === true) return $total;
+    $detalle = $this->m->ingresosPorHabitacion($fecha_inicio, $fecha_fin);
+    $data = [
+      'total_habitaciones' => $total,
+      'detalle_habitaciones' => $detalle
+    ];
+    if ($solo_valor === null) {
+      echo json_encode($data);
+      return;
+    }
+    return $data;
+  }
 }

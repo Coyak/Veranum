@@ -123,4 +123,19 @@ class ServicioController {
             echo json_encode(['ok' => false, 'error' => 'No se pudo eliminar el servicio.']);
         }
     }
+
+    public function reporteIngresos($solo_valor = null, $fecha_inicio = null, $fecha_fin = null) {
+        $total = $this->model->totalIngresos($fecha_inicio, $fecha_fin);
+        if ($solo_valor === true) return $total;
+        $detalle = $this->model->ingresosPorTipo($fecha_inicio, $fecha_fin);
+        $data = [
+            'total_servicios' => $total,
+            'detalle_servicios' => $detalle
+        ];
+        if ($solo_valor === null) {
+            echo json_encode($data);
+            return;
+        }
+        return $data;
+    }
 }

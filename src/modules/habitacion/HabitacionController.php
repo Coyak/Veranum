@@ -53,4 +53,9 @@ class HabitacionController {
     echo json_encode($disponibles);
   }
 
+  public function reporteOcupacion() {
+    $data = $this->m->getOcupacion();
+    echo json_encode($data);
+  }
+
 }

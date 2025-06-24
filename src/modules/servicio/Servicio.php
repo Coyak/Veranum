@@ -100,4 +100,60 @@ class Servicio {
             return false;
         }
     }
+
+    /**
+     * Devuelve el total de ingresos por servicios.
+     */
+    public function totalIngresos($fecha_inicio = null, $fecha_fin = null): float {
+        $where = "";
+        $params = [];
+        if ($fecha_inicio && $fecha_fin) {
+            $where .= " AND r.fecha_inicio <= ? AND r.fecha_fin >= ?";
+            $params[] = $fecha_fin;
+            $params[] = $fecha_inicio;
+        } elseif ($fecha_inicio) {
+            $where .= " AND r.fecha_fin >= ?";
+            $params[] = $fecha_inicio;
+        } elseif ($fecha_fin) {
+            $where .= " AND r.fecha_inicio <= ?";
+            $params[] = $fecha_fin;
+        }
+        $sql = "SELECT SUM(s.cantidad * s.precio_unitario) as total
+                FROM servicios s
+                JOIN reservas r ON s.reserva_id = r.id
+                WHERE 1=1 $where";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return (float)($row['total'] ?? 0);
+    }
+
+    /**
+     * Devuelve los ingresos generados por cada tipo de servicio.
+     */
+    public function ingresosPorTipo($fecha_inicio = null, $fecha_fin = null): array {
+        $where = "";
+        $params = [];
+        if ($fecha_inicio && $fecha_fin) {
+            $where .= " AND r.fecha_inicio <= ? AND r.fecha_fin >= ?";
+            $params[] = $fecha_fin;
+            $params[] = $fecha_inicio;
+        } elseif ($fecha_inicio) {
+            $where .= " AND r.fecha_fin >= ?";
+            $params[] = $fecha_inicio;
+        } elseif ($fecha_fin) {
+            $where .= " AND r.fecha_inicio <= ?";
+            $params[] = $fecha_fin;
+        }
+        $sql = "SELECT ts.nombre as servicio, SUM(s.cantidad * s.precio_unitario) as monto
+                FROM servicios s
+                JOIN tipos_servicio ts ON s.tipo_servicio_id = ts.id
+                JOIN reservas r ON s.reserva_id = r.id
+                WHERE 1=1 $where
+                GROUP BY ts.id, ts.nombre
+                ORDER BY monto DESC";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

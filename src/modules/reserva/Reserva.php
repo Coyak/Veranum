@@ -167,4 +167,59 @@ class Reserva {
     $stmt->execute([$id]);
     return $stmt->fetch(\PDO::FETCH_ASSOC);
   }
+
+  /**
+   * Devuelve el total de ingresos por habitaciones (reservas con status 'checkin' o 'ocupada').
+   */
+  public function totalIngresos($fecha_inicio = null, $fecha_fin = null): float {
+    $where = "";
+    $params = [];
+    if ($fecha_inicio && $fecha_fin) {
+      $where .= " AND r.fecha_inicio <= ? AND r.fecha_fin >= ?";
+      $params[] = $fecha_fin;
+      $params[] = $fecha_inicio;
+    } elseif ($fecha_inicio) {
+      $where .= " AND r.fecha_fin >= ?";
+      $params[] = $fecha_inicio;
+    } elseif ($fecha_fin) {
+      $where .= " AND r.fecha_inicio <= ?";
+      $params[] = $fecha_fin;
+    }
+    $sql = "SELECT SUM(h.precio) as total
+            FROM reservas r
+            JOIN habitaciones h ON r.habitacion_id = h.id
+            WHERE r.status IN ('checkin','ocupada') $where";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute($params);
+    $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+    return (float)($row['total'] ?? 0);
+  }
+
+  /**
+   * Devuelve los ingresos generados por cada habitación (solo reservas checkin/ocupada).
+   */
+  public function ingresosPorHabitacion($fecha_inicio = null, $fecha_fin = null): array {
+    $where = "";
+    $params = [];
+    if ($fecha_inicio && $fecha_fin) {
+      $where .= " AND r.fecha_inicio <= ? AND r.fecha_fin >= ?";
+      $params[] = $fecha_fin;
+      $params[] = $fecha_inicio;
+    } elseif ($fecha_inicio) {
+      $where .= " AND r.fecha_fin >= ?";
+      $params[] = $fecha_inicio;
+    } elseif ($fecha_fin) {
+      $where .= " AND r.fecha_inicio <= ?";
+      $params[] = $fecha_fin;
+    }
+    $sql = "SELECT h.nombre as habitacion, SUM(h.precio) as monto
+            FROM reservas r
+            JOIN habitaciones h ON r.habitacion_id = h.id
+            WHERE r.status IN ('checkin','ocupada') $where
+            GROUP BY h.id, h.nombre
+            ORDER BY monto DESC";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute($params);
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+  }
 }

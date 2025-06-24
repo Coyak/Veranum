@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingresos Totales - Veranum</title>
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div id="navbar"></div>
+  <main class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
+    <h1 class="text-3xl font-bold mb-8 text-gray-800">Ingresos Totales</h1>
+    <section>
+      <form id="filtro-fechas" class="flex flex-wrap gap-4 items-end mb-6">
+        <div>
+          <label for="fecha-inicio" class="block text-sm font-medium text-gray-700">Desde</label>
+          <input type="date" id="fecha-inicio" name="fecha-inicio" class="border border-gray-300 rounded px-3 py-2">
+        </div>
+        <div>
+          <label for="fecha-fin" class="block text-sm font-medium text-gray-700">Hasta</label>
+          <input type="date" id="fecha-fin" name="fecha-fin" class="border border-gray-300 rounded px-3 py-2">
+        </div>
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded">Filtrar</button>
+        <button type="button" id="btn-limpiar" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">Limpiar</button>
+      </form>
+      <div class="overflow-x-auto">
+        <table class="min-w-full rounded shadow-sm border border-gray-100">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Concepto</th>
+              <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Monto</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-ingresos" class="divide-y divide-gray-100"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="../js/api.js" defer></script>
+  <script src="../js/navbar.js" defer></script>
+  <script src="../js/guard.js" defer></script>
+  <script src="../js/ingresos-totales.js" defer></script>
+</body>
+</html> 

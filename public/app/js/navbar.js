@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
       break;
     case 'gerente':
       html += `
-        <a href="reportes.html" class="hover:underline">Reportes</a>`;
+        <a href="reportes.html" class="hover:underline">Ocupación</a>
+        <a href="ingresos-totales.html" class="hover:underline">Ingresos Totales</a>`;
       break;
     default:
       html += ''; // ningún link si rol desconocido

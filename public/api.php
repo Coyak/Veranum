@@ -8,6 +8,14 @@ error_log("API llamada: " . ($_GET['api'] ?? 'no api'));
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 
+// Si es POST y el body es JSON, decodifica y agrega a $_POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST)) {
+    $input = json_decode(file_get_contents('php://input'), true);
+    if (is_array($input)) {
+        $_POST = $input;
+    }
+}
+
 try {
     require __DIR__ . '/../config/database.php';
     require __DIR__ . '/../src/modules/auth/ClienteController.php';
@@ -129,6 +137,27 @@ try {
             break;
         case 'insumo-movimientos':
             (new \Modules\Insumo\InsumoController())->movimientos();
+            break;
+
+        // Reportes para gerente
+        case 'reporte-ocupacion':
+            (new \Modules\Habitacion\HabitacionController())->reporteOcupacion();
+            break;
+        case 'reporte-ingresos':
+            $fecha_inicio = $_GET['fecha_inicio'] ?? $_POST['fecha_inicio'] ?? null;
+            $fecha_fin = $_GET['fecha_fin'] ?? $_POST['fecha_fin'] ?? null;
+            $res_hab = (new \Modules\Reserva\ReservaController())->reporteIngresos(false, $fecha_inicio, $fecha_fin);
+            $res_serv = (new \Modules\Servicio\ServicioController())->reporteIngresos(false, $fecha_inicio, $fecha_fin);
+            $total_hab = $res_hab['total_habitaciones'] ?? 0;
+            $total_serv = $res_serv['total_servicios'] ?? 0;
+            $total_general = $total_hab + $total_serv;
+            echo json_encode([
+                'total_general' => $total_general,
+                'total_habitaciones' => $total_hab,
+                'detalle_habitaciones' => $res_hab['detalle_habitaciones'] ?? [],
+                'total_servicios' => $total_serv,
+                'detalle_servicios' => $res_serv['detalle_servicios'] ?? []
+            ]);
             break;
 
         default:

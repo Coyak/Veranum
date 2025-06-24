@@ -113,4 +113,23 @@ class Habitacion {
       return [];
     }
   }
+
+  /**
+   * Devuelve todas las habitaciones con su estado de ocupación (ocupada/libre).
+   */
+  public function getOcupacion(): array {
+    $sql = "SELECT h.id, h.nombre, 
+      EXISTS (
+        SELECT 1 FROM reservas r 
+        WHERE r.habitacion_id = h.id AND r.status IN ('checkin','ocupada')
+      ) AS ocupada
+      FROM habitaciones h
+      ORDER BY h.id";
+    $stmt = $this->pdo->query($sql);
+    $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    foreach ($data as &$hab) {
+      $hab['ocupada'] = !!$hab['ocupada'];
+    }
+    return $data;
+  }
 }

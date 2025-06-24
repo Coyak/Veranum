@@ -28,7 +28,7 @@ window.guard = {
     recepcionista:  ['recepcion.html','cuenta.html', 'asignar-servicios.html'],
     cliente:        ['rooms.html','reservas.html'],
     cocinero:       ['insumos.html', 'movimientos-insumo.html'],
-    gerente:        ['reportes.html']
+    gerente:        ['reportes.html', 'ingresos-totales.html']
   };
   const allowed = perms[role] || [];
   if (page && !allowed.includes(page) && page !== 'login.html') {
