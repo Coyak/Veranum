@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Insumos - Veranum</title>
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div id="navbar"></div>
+  <main class="max-w-3xl mx-auto mt-10 p-6 bg-white rounded shadow">
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">Gestión de Insumos</h1>
+    <form id="form-insumo" class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input type="hidden" id="insumo-id">
+      <input type="text" id="nombre" class="input border rounded px-3 py-2" placeholder="Nombre del insumo" required>
+      <input type="text" id="unidad" class="input border rounded px-3 py-2" placeholder="Unidad (ej: kg, l, un)" required>
+      <input type="text" id="descripcion" class="input border rounded px-3 py-2 md:col-span-2" placeholder="Descripción (opcional)">
+      <input type="number" id="stock_actual" class="input border rounded px-3 py-2" placeholder="Stock inicial" min="0" step="0.01" required>
+      <button type="submit" class="btn bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded md:col-span-2">Guardar Insumo</button>
+    </form>
+    <div class="mb-4 flex flex-wrap gap-2">
+      <button id="btn-limpiar" class="btn bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">Limpiar formulario</button>
+    </div>
+    <h2 class="text-xl font-semibold mt-8 mb-2 text-gray-700">Lista de Insumos</h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white border rounded">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-2 py-1 border">Nombre</th>
+            <th class="px-2 py-1 border">Unidad</th>
+            <th class="px-2 py-1 border">Stock</th>
+            <th class="px-2 py-1 border">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-insumos"></tbody>
+      </table>
+    </div>
+  </main>
+  <script src="../js/api.js" defer></script>
+  <script src="../js/navbar.js" defer></script>
+  <script src="../js/guard.js" defer></script>
+  <script src="../js/insumos.js" defer></script>
+</body>
+</html> 

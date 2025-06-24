@@ -1,26 +1,35 @@
 // public/app/js/guard.js
-(() => {
-  const role = (sessionStorage.getItem('role') || '').toLowerCase();
-  const page = window.location.pathname.split('/').pop();
+window.guard = {
+  only: function(roles) {
+    const role = (sessionStorage.getItem('role') || '').toLowerCase();
+    const page = window.location.pathname.split('/').pop();
 
-  // Si no hay sesión, obligar a login.html
-  if (!role) {
-    if (!['login.html','register.html'].includes(page)) {
+    // Si no hay sesión, obligar a login.html
+    if (!role) {
+      if (!['login.html','register.html'].includes(page)) {
+        return location.replace('login.html');
+      }
+      return;
+    }
+
+    // Si el rol no está permitido, redirige a login
+    if (!roles.includes(role)) {
       return location.replace('login.html');
     }
-    return;
   }
+};
 
-  // Map de páginas permitidas por rol
+// Protección automática por página (opcional, puedes quitar si solo usas guard.only manualmente)
+(function() {
+  const role = (sessionStorage.getItem('role') || '').toLowerCase();
+  const page = window.location.pathname.split('/').pop();
   const perms = {
     admin:          ['hotels.html', 'habitaciones.html', 'servicios-admin.html'],
     recepcionista:  ['recepcion.html','cuenta.html', 'asignar-servicios.html'],
     cliente:        ['rooms.html','reservas.html'],
-    cocinero:       ['insumos.html'],
+    cocinero:       ['insumos.html', 'movimientos-insumo.html'],
     gerente:        ['reportes.html']
   };
-
-  // Si la página no está en la lista de su rol, redirige a su home
   const allowed = perms[role] || [];
   if (page && !allowed.includes(page) && page !== 'login.html') {
     const home = allowed[0] || 'login.html';

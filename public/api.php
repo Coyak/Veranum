@@ -16,6 +16,7 @@ try {
     require __DIR__.'/../src/modules/reserva/ReservaController.php';
     require __DIR__.'/../src/modules/servicio/ServicioController.php';
     require __DIR__.'/../src/modules/servicio/TipoServicioController.php';
+    require __DIR__.'/../src/modules/insumo/InsumoController.php';
 
     $api = $_GET['api'] ?? '';
     switch($api) {
@@ -108,6 +109,26 @@ try {
             break;
         case 'servicio-delete':
             (new \Modules\Servicio\ServicioController())->delete();
+            break;
+
+        // Insumos (solo cocinero)
+        case 'insumos':
+            (new \Modules\Insumo\InsumoController())->index();
+            break;
+        case 'insumo-create':
+            (new \Modules\Insumo\InsumoController())->store();
+            break;
+        case 'insumo-update':
+            (new \Modules\Insumo\InsumoController())->update();
+            break;
+        case 'insumo-delete':
+            (new \Modules\Insumo\InsumoController())->delete();
+            break;
+        case 'insumo-movimiento':
+            (new \Modules\Insumo\InsumoController())->movimiento();
+            break;
+        case 'insumo-movimientos':
+            (new \Modules\Insumo\InsumoController())->movimientos();
             break;
 
         default:

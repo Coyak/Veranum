@@ -35,4 +35,29 @@ INSERT INTO `tipos_servicio` (`nombre`, `precio`) VALUES
 ('Lavandería (por pieza)', 5000),
 ('Acceso a Spa', 30000),
 ('Cama Extra', 25000),
-('Botella de Vino', 20000); 
+('Botella de Vino', 20000);
+
+-- Fase 5: Crear la tabla de insumos para la gestión de stock de cocina/restaurante
+CREATE TABLE IF NOT EXISTS `insumos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `descripcion` varchar(255),
+  `unidad` varchar(20) NOT NULL,
+  `stock_actual` decimal(10,2) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Fase 6: Crear la tabla de movimientos de insumo para registrar ingresos y consumos
+CREATE TABLE IF NOT EXISTS `movimientos_insumo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_insumo` int(11) NOT NULL,
+  `tipo_movimiento` ENUM('ingreso','consumo') NOT NULL,
+  `cantidad` decimal(10,2) NOT NULL,
+  `fecha` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `observacion` varchar(255),
+  PRIMARY KEY (`id`),
+  KEY `id_insumo` (`id_insumo`),
+  CONSTRAINT `movimientos_insumo_ibfk_1` FOREIGN KEY (`id_insumo`) REFERENCES `insumos` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci; 

@@ -1,0 +1,44 @@
+services:
+  web:
+    build: .
+    container_name: veranum-web
+    volumes:
+      - ./public:/var/www/html
+      - ./src:/var/www/src
+      - ./config:/var/www/config
+      - ./database:/var/www/database
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+    working_dir: /var/www/html
+
+  db:
+    image: mysql:8.0
+    container_name: veranum-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: veranum
+      MYSQL_USER: veranum
+      MYSQL_PASSWORD: veranum
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: veranum-phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+
+volumes:
+  db_data: 

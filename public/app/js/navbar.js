@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
       break;
     case 'cocinero':
       html += `
-        <a href="insumos.html" class="hover:underline">Insumos</a>`;
+        <a href="insumos.html" class="hover:underline">Insumos</a>
+        <a href="movimientos-insumo.html" class="hover:underline">Movimientos de Insumo</a>`;
       break;
     case 'gerente':
       html += `

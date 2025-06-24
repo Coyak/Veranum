@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historial de Movimientos de Insumos - Veranum</title>
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div id="navbar"></div>
+  <main class="max-w-4xl mx-auto mt-10 p-6 bg-white rounded shadow">
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">Historial de Movimientos de Insumos</h1>
+    <div class="mb-4">
+      <a href="insumos.html" class="btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Volver a Gestión de Insumos</a>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white border rounded">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-2 py-1 border">Fecha</th>
+            <th class="px-2 py-1 border">Insumo</th>
+            <th class="px-2 py-1 border">Unidad</th>
+            <th class="px-2 py-1 border">Tipo</th>
+            <th class="px-2 py-1 border">Cantidad</th>
+            <th class="px-2 py-1 border">Observación</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-movimientos"></tbody>
+      </table>
+    </div>
+  </main>
+  <script src="../js/api.js" defer></script>
+  <script src="../js/navbar.js" defer></script>
+  <script src="../js/guard.js" defer></script>
+  <script src="../js/movimientos-insumo.js" defer></script>
+</body>
+</html> 
