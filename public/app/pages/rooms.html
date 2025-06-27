@@ -6,29 +6,29 @@
   <title>Buscar Habitaciones - Veranum</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen bg-gray-100 flex flex-col">
+<body class="min-h-screen bg-black flex flex-col">
   <div id="navbar"></div>
 
   <div class="flex-grow container mx-auto p-6">
     <header class="mb-6">
-      <h1 class="text-3xl font-bold">Encuentra tu Próxima Estadía</h1>
-      <p class="text-gray-600">Selecciona las fechas para ver las habitaciones disponibles.</p>
+      <h1 class="text-3xl font-bold text-white">Encuentra tu Próxima Estadía</h1>
+      <p class="text-gray-200">Selecciona las fechas para ver las habitaciones disponibles.</p>
     </header>
 
     <main class="space-y-6">
       <!-- 1) Formulario de búsqueda -->
-      <section class="bg-white p-6 rounded-lg shadow">
+      <section class="bg-white bg-opacity-90 p-6 rounded-lg shadow-xl">
         <form id="search-form" class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label class="block mb-1">Fecha Inicio</label>
-            <input type="date" name="fi" class="w-full border px-3 py-2 rounded" required>
+            <label class="block mb-1 text-gray-700 font-medium">Fecha Inicio</label>
+            <input type="date" name="fi" class="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent" required>
           </div>
           <div>
-            <label class="block mb-1">Fecha Fin</label>
-            <input type="date" name="ff" class="w-full border px-3 py-2 rounded" required>
+            <label class="block mb-1 text-gray-700 font-medium">Fecha Fin</label>
+            <input type="date" name="ff" class="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent" required>
           </div>
           <div class="flex items-end">
-            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded">
+            <button type="submit" class="w-full py-3 rounded-lg font-semibold text-lg shadow transition border-2 border-black hover:opacity-90" style="background-color: #bfa14a; color: #222;">
               Buscar
             </button>
           </div>

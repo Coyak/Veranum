@@ -5,28 +5,28 @@
   <title>Iniciar Sesión – Veranum</title>
   <link href="/app/assets/css/tailwind.css" rel="stylesheet">
 </head>
-<body class="min-h-screen bg-gray-100 flex items-center justify-center">
-  <div class="w-full max-w-sm bg-white p-6 rounded-lg shadow">
-    <h1 class="text-xl font-semibold mb-4 text-center">Veranum Hotel</h1>
+<body class="min-h-screen bg-black flex items-center justify-center">
+  <div class="w-full max-w-sm bg-white bg-opacity-90 p-8 rounded-lg shadow-xl">
+    <h1 class="text-2xl font-bold mb-6 text-center" style="color: #bfa14a;">Veranum Hotel</h1>
     <form id="login-form" class="space-y-4">
       <div>
-        <label for="email" class="block text-sm font-medium">Email</label>
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
         <input id="email" type="email" required
-               class="mt-1 w-full px-3 py-2 border rounded">
+               class="mt-1 w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
       </div>
       <div>
-        <label for="password" class="block text-sm font-medium">Contraseña</label>
+        <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
         <input id="password" type="password" required
-               class="mt-1 w-full px-3 py-2 border rounded">
+               class="mt-1 w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
       </div>
       <button type="submit"
-              class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700">
+              class="w-full py-3 rounded font-semibold text-lg shadow transition border-2 border-black hover:opacity-90" style="background-color: #bfa14a; color: #222;">
         Entrar
       </button>
     </form>
-    <p class="mt-4 text-center text-sm">
+    <p class="mt-6 text-center text-sm text-gray-600">
       ¿No tienes cuenta?
-      <a href="register.html" class="text-indigo-600 hover:underline">
+      <a href="register.html" class="font-semibold hover:text-yellow-400" style="color: #bfa14a;">
         Regístrate
       </a>
     </p>

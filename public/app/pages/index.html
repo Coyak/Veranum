@@ -3,19 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <title>Veranum Hotel</title>
+<!-- Tailwind CDN (por si no está activo el local) -->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<!-- Tailwind local -->
 <link href="../assets/css/tailwind.css" rel="stylesheet">
-    </head>
-    <body class="h-screen flex items-center justify-center bg-gradient-to-r from-blue-400 to-indigo-600">
-    <div class="text-center bg-white bg-opacity-90 p-12 rounded-lg shadow-xl">
-        <h1 class="text-5xl font-bold mb-8">Veranum Hotel</h1>
-        <a href="login.html"
-        class="block mb-4 bg-blue-600 text-white px-8 py-3 rounded hover:bg-blue-700">
-        Iniciar Sesión
-        </a>
-        <a href="register.html"
-        class="block bg-green-600 text-white px-8 py-3 rounded hover:bg-green-700">
-        Crear Cuenta
-        </a>
-    </div>
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+</head>
+<body class="min-h-screen bg-black flex flex-col">
+    <!-- Navbar -->
+    <nav class="bg-black bg-opacity-95 shadow-md py-4 px-8 flex flex-col md:flex-row md:justify-between md:items-center">
+        <span class="text-2xl font-bold tracking-wide mb-2 md:mb-0" style="color: #bfa14a;">Veranum Hotel</span>
+        <div class="flex flex-col md:flex-row w-full md:w-auto gap-2 md:gap-0 md:items-center md:justify-end">
+            <a href="login.html" class="font-semibold md:mx-2 hover:text-yellow-300 w-full md:w-auto text-center" style="color: #bfa14a;">Iniciar Sesión</a>
+            <a href="register.html" class="text-white hover:text-yellow-400 font-semibold md:mx-2 w-full md:w-auto text-center">Crear Cuenta</a>
+            <a href="#contacto" class="md:ml-4 px-4 py-2 rounded-lg font-semibold transition border-2 border-black hover:opacity-90 w-full md:w-auto text-center" style="background-color: #bfa14a; color: #222;">Contacto</a>
+        </div>
+    </nav>
+    <!-- Hero principal -->
+    <section class="flex flex-col items-center justify-center text-center py-20 px-4 bg-black">
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-6 text-white">Bienvenido a <span style="color: #bfa14a;">Veranum</span></h1>
+        <p class="text-xl text-gray-200 mb-8 max-w-2xl">Vive la experiencia de un hotel moderno, elegante y cómodo. Inspirado en los mejores hoteles del mundo, en el corazón de la ciudad.</p>
+        <div class="flex flex-col md:flex-row gap-4 justify-center">
+            <a href="#servicios" class="mt-4 inline-block px-8 py-3 rounded-lg font-semibold text-lg shadow transition border-2 border-black hover:opacity-90" style="background-color: #bfa14a; color: #222;">Descubre nuestros servicios</a>
+            <a href="rooms.html" class="mt-4 inline-block px-8 py-3 rounded-lg font-bold text-lg border-4 border-yellow-600 shadow-xl transition transform hover:scale-105 hover:shadow-2xl hover:bg-black hover:text-yellow-400" style="background-color: #bfa14a; color: #222; letter-spacing: 1px;">Reserva ahora</a>
+        </div>
+    </section>
+    <!-- Top 3 habitaciones más reservadas -->
+    <section class="py-16 bg-white border-t-8 border-b-8" style="border-color: #f3f4f6;">
+        <h2 class="text-3xl font-bold mb-10 text-center" style="color: #bfa14a;">Top 3 Habitaciones Más Reservadas</h2>
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Habitación 1 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                <img src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Suite Ejecutiva" class="h-48 w-full object-cover">
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <h3 class="text-xl font-bold mb-2" style="color: #bfa14a;">Suite Ejecutiva</h3>
+                    <p class="text-gray-700 mb-4 flex-1">Amplia, elegante y con vista panorámica a la ciudad.</p>
+                    <div class="border-t pt-3">
+                        <p class="text-sm text-gray-600 italic">"No estaba a mi nivel ." <br>★</p>
+                        <span class="block text-xs text-gray-500 mt-1">- Felipe Angel.</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Habitación 2 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=600&q=80" alt="Doble Standard" class="h-48 w-full object-cover">
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <h3 class="text-xl font-bold mb-2" style="color: #bfa14a;">Doble Standard</h3>
+                    <p class="text-gray-700 mb-4 flex-1">Confort y funcionalidad para viajes de negocios o placer.</p>
+                    <div class="border-t pt-3">
+                        <p class="text-sm text-gray-600 italic">"Muy cómoda y limpia. Volvería sin dudarlo.   "</p>
+                        <span class="block text-xs text-gray-500 mt-1">- Carlos Fabian Delgado Guerrero <br>★★★★★</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Habitación 3 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                <img src="https://images.unsplash.com/photo-1595526051245-4506e0005bd0?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Matrimonial Vista Mar" class="h-48 w-full object-cover">
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <h3 class="text-xl font-bold mb-2" style="color: #bfa14a;">Matrimonial Vista Mar</h3>
+                    <p class="text-gray-700 mb-4 flex-1">Ideal para parejas, con una vista espectacular al mar.</p>
+                    <div class="border-t pt-3">
+                        <p class="text-sm text-gray-600 italic">"La vista al mar es simplemente maravillosa." <br>★★★★★</p>
+                        <span class="block text-xs text-gray-500 mt-1">- Juanito Perez.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Servicios destacados -->
+    <section id="servicios" class="py-16 bg-white">
+        <h2 class="text-3xl font-bold mb-10 text-center" style="color: #bfa14a;">Servicios Destacados</h2>
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="flex flex-col items-center">
+                <span class="text-5xl mb-4" style="color: #bfa14a;">🏊‍♂️</span>
+                <h3 class="text-xl font-semibold mb-2 text-black">Piscina & Spa</h3>
+                <p class="text-gray-700 text-center">Relájate en nuestra piscina climatizada y disfruta del spa de primer nivel.</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <span class="text-5xl mb-4" style="color: #bfa14a;">🍽️</span>
+                <h3 class="text-xl font-semibold mb-2 text-black">Gastronomía</h3>
+                <p class="text-gray-700 text-center">Restaurante gourmet con desayuno buffet y opciones internacionales.</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <span class="text-5xl mb-4" style="color: #bfa14a;">🛏️</span>
+                <h3 class="text-xl font-semibold mb-2 text-black">Habitaciones Premium</h3>
+                <p class="text-gray-700 text-center">Habitaciones modernas, cómodas y con vista privilegiada.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Sobre nosotros -->
+    <section class="py-16 bg-black">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-6" style="color: #bfa14a;">Sobre Nosotros</h2>
+            <p class="text-gray-200 text-lg">En Veranum Hotel nos dedicamos a ofrecer una experiencia única, combinando lujo, comodidad y atención personalizada. Nuestro equipo está comprometido con tu bienestar y satisfacción en cada momento de tu estadía.</p>
+        </div>
+    </section>
+    <!-- Contacto -->
+    <section id="contacto" class="py-16 bg-white">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-6" style="color: #bfa14a;">Contacto</h2>
+            <p class="text-gray-700 text-lg mb-2">¿Tienes dudas o quieres reservar?</p>
+            <p class="text-gray-700 mb-2">Escríbenos a <span class="font-semibold" style="color: #bfa14a;">contacto@veranumhotel.com</span></p>
+            <p class="text-gray-700 mb-2">Llámanos: <span class="font-semibold" style="color: #bfa14a;">+56912345678</span></p>
+            <p class="text-gray-700 mb-6">Dirección: <span class="font-semibold" style="color: #bfa14a;">Egaña 651, 5480000 Puerto Montt, Los Lagos</span></p>
+            <div class="flex justify-center">
+                <iframe
+                    src="https://www.google.com/maps?q=Ega%C3%B1a+651,+Puerto+Montt,+Los+Lagos,+Chile&output=embed"
+                    width="100%" height="300" style="border:0; border-radius: 1rem; min-width:300px; max-width:100%;"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-black py-6 mt-0">
+        <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+            <span class="text-white text-sm">&copy; 2025 Veranum Hotel. Todos los derechos reservados.</span>
+            <span class="text-sm mt-2 md:mt-0" style="color: #bfa14a;">Diseño inspirado en hoteles premium</span>
+        </div>
+    </footer>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: '¡Cookies!',
+                text: 'Usamos cookies para mejorar tu experiencia en Veranum Hotel.',
+                icon: 'info',
+                confirmButtonText: 'Aceptar'
+            });
+        });
+    </script>
 </body>
 </html>

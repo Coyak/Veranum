@@ -6,37 +6,37 @@
     <title>Cuenta del Huésped - Veranum</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen bg-gray-100 flex flex-col">
+<body class="min-h-screen bg-black flex flex-col">
     <div id="navbar"></div>
 
     <main class="flex-grow container mx-auto p-6">
         <div id="account-view" class="max-w-4xl mx-auto">
             <header class="mb-6">
-                <a href="/app/pages/recepcion.html" class="text-blue-600 hover:underline">&larr; Volver al Panel de Recepción</a>
-                <h1 class="text-3xl font-bold mt-2">Cuenta de Huésped</h1>
+                <a href="/app/pages/recepcion.html" class="font-semibold hover:text-yellow-400" style="color: #bfa14a;">&larr; Volver al Panel de Recepción</a>
+                <h1 class="text-3xl font-bold mt-2 text-white">Cuenta de Huésped</h1>
             </header>
 
-            <div class="bg-white rounded-lg shadow-lg p-8">
+            <div class="bg-white bg-opacity-90 rounded-lg shadow-xl p-8">
                 <!-- Información del Huésped (se carga dinámicamente) -->
-                <div id="guest-info" class="mb-6 border-b pb-4">
-                    <h2 id="guest-name" class="text-2xl font-bold text-gray-800">Cargando...</h2>
+                <div id="guest-info" class="mb-6 border-b border-gray-300 pb-4">
+                    <h2 id="guest-name" class="text-2xl font-bold" style="color: #bfa14a;">Cargando...</h2>
                     <p id="room-details" class="text-gray-600"></p>
                 </div>
 
                 <!-- Resumen de Costos -->
                 <div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-700">Resumen de Cuenta</h3>
+                    <h3 class="text-xl font-semibold mb-4" style="color: #bfa14a;">Resumen de Cuenta</h3>
                     
                     <!-- Costo de la Habitación -->
                     <div class="flex justify-between items-center py-2">
-                        <p class="text-lg">Costo de la estadía (Habitación)</p>
-                        <p id="room-cost" class="text-lg font-semibold">Cargando...</p>
+                        <p class="text-lg text-gray-700">Costo de la estadía (Habitación)</p>
+                        <p id="room-cost" class="text-lg font-semibold" style="color: #bfa14a;">Cargando...</p>
                     </div>
 
-                    <hr class="my-2">
+                    <hr class="my-2 border-gray-300">
 
                     <!-- Lista de Servicios Adicionales -->
-                    <h4 class="text-lg font-semibold mt-4 mb-2">Servicios Adicionales</h4>
+                    <h4 class="text-lg font-semibold mt-4 mb-2" style="color: #bfa14a;">Servicios Adicionales</h4>
                     <div id="services-list" class="space-y-2">
                         <!-- Los servicios se cargarán aquí -->
                         <p class="text-gray-500">No hay servicios adicionales.</p>
@@ -45,15 +45,15 @@
                     <!-- Total de la Cuenta -->
                     <div class="mt-6 border-t-2 border-gray-300 pt-4">
                         <div class="flex justify-between items-center text-2xl font-bold">
-                            <p>Total Actual</p>
-                            <p id="total-amount">Cargando...</p>
+                            <p class="text-gray-700">Total Actual</p>
+                            <p id="total-amount" style="color: #bfa14a;">Cargando...</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Botones de Acción -->
                 <div class="mt-8 flex justify-end gap-4">
-                    <button id="add-services-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg">
+                    <button id="add-services-btn" class="px-6 py-3 rounded-lg font-semibold text-lg shadow transition border-2 border-black hover:opacity-90" style="background-color: #bfa14a; color: #222;">
                         Añadir Servicios
                     </button>
                 </div>

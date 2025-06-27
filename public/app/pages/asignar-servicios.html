@@ -6,45 +6,45 @@
     <title>Asignar Servicios - Veranum</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen bg-gray-100 flex flex-col">
+<body class="min-h-screen bg-black flex flex-col">
     <div id="navbar"></div>
 
     <div class="flex-grow container mx-auto p-6">
       <!-- VISTA: Gestión de la Cuenta del Huésped -->
       <div id="service-assignment-view">
-        <button id="back-to-list-btn" class="mb-4 text-blue-600 hover:underline">&larr; Volver a la cuenta</button>
+        <button id="back-to-list-btn" class="mb-4 font-semibold hover:text-yellow-400" style="color: #bfa14a;">&larr; Volver a la cuenta</button>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           <!-- Columna Izquierda: Servicios Disponibles -->
           <div>
-            <h2 class="text-2xl font-bold mb-4">Añadir Servicios Nuevos</h2>
-            <div id="available-services-container" class="space-y-3 bg-white p-4 rounded-lg shadow max-h-[60vh] overflow-y-auto">
+            <h2 class="text-2xl font-bold mb-4 text-white">Añadir Servicios Nuevos</h2>
+            <div id="available-services-container" class="space-y-3 bg-white bg-opacity-90 p-4 rounded-lg shadow-xl max-h-[60vh] overflow-y-auto">
               <!-- Servicios del catálogo se cargarán aquí -->
             </div>
           </div>
 
           <!-- Columna Derecha: Resumen de Cuenta -->
           <div>
-            <h2 class="text-2xl font-bold mb-4">Resumen de la Adición</h2>
-            <div class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold mb-4 text-white">Resumen de la Adición</h2>
+            <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-xl">
                 <div class="mb-4">
-                  <p id="summary-guest-name" class="font-bold text-xl"></p>
+                  <p id="summary-guest-name" class="font-bold text-xl" style="color: #bfa14a;"></p>
                   <p id="summary-room-name" class="text-sm text-gray-600"></p>
                 </div>
-                <div class="border-t pt-2 mt-2">
-                  <h3 class="font-semibold mb-2">Servicios a Añadir</h3>
+                <div class="border-t border-gray-300 pt-2 mt-2">
+                  <h3 class="font-semibold mb-2" style="color: #bfa14a;">Servicios a Añadir</h3>
                   <div id="summary-services-list" class="space-y-2">
                     <!-- Servicios seleccionados se listarán aquí -->
                   </div>
                 </div>
-                <div class="border-t-2 border-dashed pt-4 mt-4">
+                <div class="border-t-2 border-dashed border-gray-300 pt-4 mt-4">
                   <div class="flex justify-between font-bold text-2xl">
-                    <span>Total a Añadir:</span>
-                    <span id="summary-total-price"></span>
+                    <span class="text-gray-700">Total a Añadir:</span>
+                    <span id="summary-total-price" style="color: #bfa14a;"></span>
                   </div>
                 </div>
                 <div class="mt-6">
-                  <button id="save-services-btn" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg">
+                  <button id="save-services-btn" class="w-full py-3 px-4 rounded-lg font-semibold text-lg shadow transition border-2 border-black hover:opacity-90" style="background-color: #bfa14a; color: #222;">
                     Añadir a la Cuenta
                   </button>
                 </div>
