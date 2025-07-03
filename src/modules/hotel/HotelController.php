@@ -41,4 +41,9 @@ class HotelController {
         'ok' => $this->m->delete($id)
     ]);
     }
+
+  // GET /api.php?api=reporte-ocupacion-por-hotel
+  public function reporteOcupacionPorHotel() {
+    echo json_encode($this->m->getOcupacionPorHotel());
+  }
 }

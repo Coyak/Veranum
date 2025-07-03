@@ -29,4 +29,18 @@ class Hotel {
     $stmt = $this->pdo->prepare("DELETE FROM hoteles WHERE id = ?");
     return $stmt->execute([$id]);
   }
+
+  /**
+   * Devuelve la cantidad de habitaciones ocupadas por hotel.
+   */
+  public function getOcupacionPorHotel(): array {
+    $sql = "SELECT hot.id, hot.nombre as hotel, COUNT(CASE WHEN r.status IN ('checkin','ocupada') THEN 1 END) as ocupadas
+            FROM hoteles hot
+            LEFT JOIN habitaciones h ON h.hotel_id = hot.id
+            LEFT JOIN reservas r ON r.habitacion_id = h.id
+            GROUP BY hot.id, hot.nombre
+            ORDER BY hot.nombre";
+    $stmt = $this->pdo->query($sql);
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+  }
 }

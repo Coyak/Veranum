@@ -156,4 +156,17 @@ class Servicio {
         $stmt->execute($params);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    /**
+     * Devuelve los servicios más solicitados y su cantidad.
+     */
+    public function serviciosPopulares(): array {
+        $sql = "SELECT ts.nombre as servicio, SUM(s.cantidad) as solicitudes
+                FROM servicios s
+                JOIN tipos_servicio ts ON s.tipo_servicio_id = ts.id
+                GROUP BY ts.id, ts.nombre
+                ORDER BY solicitudes DESC";
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

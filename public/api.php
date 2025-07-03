@@ -160,6 +160,20 @@ try {
             ]);
             break;
 
+        // Reportes para gráficos
+        case 'reporte-ocupacion-por-hotel':
+            (new \Modules\Hotel\HotelController())->reporteOcupacionPorHotel();
+            break;
+        case 'reporte-tipos-habitacion':
+            (new \Modules\Habitacion\HabitacionController())->reporteTiposHabitacion();
+            break;
+        case 'reporte-ingresos-mensuales':
+            (new \Modules\Reserva\ReservaController())->reporteIngresosMensuales();
+            break;
+        case 'reporte-servicios-populares':
+            (new \Modules\Servicio\ServicioController())->reporteServiciosPopulares();
+            break;
+
         default:
             http_response_code(404);
             echo json_encode(['ok'=>false,'error'=>'API no encontrada']);

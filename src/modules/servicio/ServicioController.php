@@ -138,4 +138,9 @@ class ServicioController {
         }
         return $data;
     }
+
+    // GET /api.php?api=reporte-servicios-populares
+    public function reporteServiciosPopulares() {
+        echo json_encode($this->model->serviciosPopulares());
+    }
 }

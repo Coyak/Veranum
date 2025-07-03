@@ -104,4 +104,9 @@ class ReservaController {
     }
     return $data;
   }
+
+  // GET /api.php?api=reporte-ingresos-mensuales
+  public function reporteIngresosMensuales() {
+    echo json_encode($this->m->ingresosMensuales());
+  }
 }

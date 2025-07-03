@@ -222,4 +222,18 @@ class Reserva {
     $stmt->execute($params);
     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
   }
+
+  /**
+   * Devuelve los ingresos totales agrupados por mes (solo reservas checkin/ocupada).
+   */
+  public function ingresosMensuales(): array {
+    $sql = "SELECT DATE_FORMAT(fecha_inicio, '%Y-%m') as mes, SUM(h.precio) as ingresos
+            FROM reservas r
+            JOIN habitaciones h ON r.habitacion_id = h.id
+            WHERE r.status IN ('checkin','ocupada')
+            GROUP BY mes
+            ORDER BY mes";
+    $stmt = $this->pdo->query($sql);
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+  }
 }

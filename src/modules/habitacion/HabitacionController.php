@@ -58,4 +58,9 @@ class HabitacionController {
     echo json_encode($data);
   }
 
+  // GET /api.php?api=reporte-tipos-habitacion
+  public function reporteTiposHabitacion() {
+    echo json_encode($this->m->getTiposHabitacion());
+  }
+
 }

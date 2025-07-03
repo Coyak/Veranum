@@ -132,4 +132,13 @@ class Habitacion {
     }
     return $data;
   }
+
+  /**
+   * Devuelve la cantidad de habitaciones por tipo (agrupado por nombre).
+   */
+  public function getTiposHabitacion(): array {
+    $sql = "SELECT nombre as tipo, COUNT(*) as cantidad FROM habitaciones GROUP BY nombre ORDER BY cantidad DESC";
+    $stmt = $this->pdo->query($sql);
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+  }
 }
